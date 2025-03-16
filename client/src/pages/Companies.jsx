@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CompanyCard, CustomButton, Header, ListBox } from "../components";
-import { companies } from "../utils/data";
+import { CompanyCard, CustomButton, Header, ListBox, Loading } from "../components";
+
+import { apiRequest, updateURL } from "../utils";
 
 const Companies = () => {
   const [page, setPage] = useState(1);
   const [numPage, setNumPage] = useState(1);
   const [recordsCount, setRecordsCount] = useState(0);
-  const [data, setData] = useState(companies ?? []);
+  const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [cmpLocation, setCmpLocation] = useState("");
   const [sort, setSort] = useState("Newest");
@@ -15,10 +16,45 @@ const Companies = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+   
 
-  const handleSearchSubmit = () => {};
+  const fetchCompanies = async () => {
+     setIsFetching(true)
+
+     const newURL = updateURL ({
+      pageaNum: page,
+      query: searchQuery,
+      cmpLoc: cmpLocation,
+      sort: sort,
+      navigate: navigate,
+      location: location,
+     });
+
+     try{
+          const res = await apiRequest({
+            url: newURL,
+            method: "GET",
+          });
+
+         
+
+          setNumPage(res?.numOfPage);
+          setRecordsCount(res?.total);
+          setData(res?.data);
+
+          setIsFetching(false);
+     }catch (e) {
+      console.log(e);
+     }
+  };
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault();
+  };
   const handleShowMore = () => {};
+  useEffect(() => {
+     fetchCompanies();
 
+  } , [page , sort ]);
   return (
     <div className='w-full'>
       <Header
@@ -27,24 +63,24 @@ const Companies = () => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         location={cmpLocation}
-        setLocation={setSearchQuery}
+        setLocation={setCmpLocation}
       />
 
-      <div className='container mx-auto flex flex-col gap-5 2xl:gap-10 px-5 md:px-0 py-6 bg-[#f7fdfd]'>
-        <div className='flex items-center justify-between mb-4'>
+      <div className='flex flex-col gap-5 2xl:gap-10 bg-[#f7fdfd] mx-auto px-5 py-6 container'>
+        <div className='flex justify-between items-center mb-4'>
           <p className='text-sm md:text-base'>
-            Shwoing: <span className='font-semibold'>1,902</span> Companies
+            Shwoing: <span className='font-semibold'>{recordsCount}</span>{ "  "} Companies
             Available
           </p>
 
-          <div className='flex flex-col md:flex-row gap-0 md:gap-2 md:items-center'>
+          <div className='flex md:flex-row flex-col md:items-center gap-0 md:gap-2'>
             <p className='text-sm md:text-base'>Sort By:</p>
 
             <ListBox sort={sort} setSort={setSort} />
           </div>
         </div>
 
-        <div className='w-full flex flex-col gap-6'>
+        <div className='flex flex-col gap-6 w-full'>
           {data?.map((cmp, index) => (
             <CompanyCard cmp={cmp} key={index} />
           ))}
@@ -61,7 +97,7 @@ const Companies = () => {
         </div>
 
         {numPage > page && !isFetching && (
-          <div className='w-full flex items-center justify-center pt-16'>
+          <div className='flex justify-center items-center pt-16 w-full'>
             <CustomButton
               onClick={handleShowMore}
               title='Load More'

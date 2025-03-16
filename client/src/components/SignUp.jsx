@@ -5,6 +5,9 @@ import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import TextInput from "./TextInput";
 import CustomButton from "./CustomButton";
+import { apiRequest } from "../utils";
+import { Login } from "../redux/userSlice"; 
+
 
 const SignUp = ({ open, setOpen }) => {
   const dispatch = useDispatch();
@@ -15,7 +18,7 @@ const SignUp = ({ open, setOpen }) => {
 
   const [errMsg, setErrMsg] = useState("");
   const {
-    register,
+    register, 
     handleSubmit,
     getValues,
     watch,
@@ -27,12 +30,52 @@ const SignUp = ({ open, setOpen }) => {
 
   const closeModal = () => setOpen(false);
 
-  const onSubmit = () => {};
+  const onSubmit =  async (data) => {
+
+    let URL = null
+    if(isRegister) {
+      if(accountType === "seeker"){
+        URL = "auth/register";
+      }else
+
+      URL = "companies/register";
+    }else {
+       if (accountType === "seeker"){
+        URL = "auth/login";
+     } else {
+      URL = "companies/login";
+     }
+    }
+    try {
+const res = await  apiRequest({
+  url: URL,
+  data: data,
+  method: "POST",
+});  
+
+   
+   if (res?.status === "failed") {
+    setErrMsg(res?.message);
+   } else {
+    setErrMsg("");
+    const data = {token: res?.token, ...res?.user };
+    dispatch(Login (data));
+    localStorage.setItem("userInfo", JSON.stringify(data));
+    window.location.replace(from);
+
+    }
+   
+
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
 
   return (
     <>
       <Transition appear show={open || false}>
-        <Dialog as='div' className='relative z-10 ' onClose={closeModal}>
+        <Dialog as='div' className='z-10 relative' onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -45,8 +88,8 @@ const SignUp = ({ open, setOpen }) => {
             <div className='fixed inset-0 bg-black bg-opacity-25' />
           </Transition.Child>
 
-          <div className='fixed inset-0 overflow-y-auto '>
-            <div className='flex min-h-full items-center justify-center p-4 text-center '>
+          <div className='fixed inset-0 overflow-y-auto'>
+            <div className='flex justify-center items-center p-4 min-h-full text-center'>
               <Transition.Child
                 as={Fragment}
                 enter='ease-out duration-300'
@@ -56,15 +99,15 @@ const SignUp = ({ open, setOpen }) => {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all '>
+                <Dialog.Panel className='bg-white shadow-xl p-6 rounded-2xl w-full max-w-md overflow-hidden text-left align-middle transition-all transform'>
                   <Dialog.Title
                     as='h3'
-                    className='text-xl font-semibold lwading-6 text-gray-900'
+                    className='font-semibold text-gray-900 text-xl lwading-6'
                   >
                     {isRegister ? "Create Account" : "Account Sign In"}
                   </Dialog.Title>
 
-                  <div className='w-full flex items-center justify-center py-4 '>
+                  <div className='flex justify-center items-center py-4 w-full'>
                     <button
                       className={`flex-1 px-4 py-2 rounded text-sm outline-none ${
                         accountType === "seeker"
@@ -88,7 +131,7 @@ const SignUp = ({ open, setOpen }) => {
                   </div>
 
                   <form
-                    className='w-full flex flex-col gap-5'
+                    className='flex flex-col gap-5 w-full'
                     onSubmit={handleSubmit(onSubmit)}
                   >
                     <TextInput
@@ -103,7 +146,7 @@ const SignUp = ({ open, setOpen }) => {
                     />
 
                     {isRegister && (
-                      <div className='w-full flex gap-1 md:gap-2'>
+                      <div className='flex gap-1 md:gap-2 w-full'>
                         <div
                           className={`${
                             accountType === "seeker" ? "w-1/2" : "w-full"
@@ -164,7 +207,7 @@ const SignUp = ({ open, setOpen }) => {
                       </div>
                     )}
 
-                    <div className='w-full flex gap-1 md:gap-2'>
+                    <div className='flex gap-1 md:gap-2 w-full'>
                       <div className={`${isRegister ? "w-1/2" : "w-full"}`}>
                         <TextInput
                           name='password'
@@ -209,7 +252,7 @@ const SignUp = ({ open, setOpen }) => {
                     {errMsg && (
                       <span
                         role='alert'
-                        className='text-sm text-red-500 mt-0.5'
+                        className='mt-0.5 text-red-500 text-sm'
                       >
                         {errMsg}
                       </span>
@@ -225,13 +268,13 @@ const SignUp = ({ open, setOpen }) => {
                   </form>
 
                   <div className='mt-4'>
-                    <p className='text-sm text-gray-700'>
+                    <p className='text-gray-700 text-sm'>
                       {isRegister
                         ? "Already has an account?"
                         : "Do not have an account"}
 
                       <span
-                        className='text-sm text-blue-600 ml-2 hover:text-blue-700 hover:font-semibold cursor-pointer'
+                        className='ml-2 hover:font-semibold text-blue-600 hover:text-blue-700 text-sm cursor-pointer'
                         onClick={() => setIsRegister((prev) => !prev)}
                       >
                         {isRegister ? "Login" : "Create Account"}

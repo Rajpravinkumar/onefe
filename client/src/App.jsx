@@ -40,7 +40,7 @@ function App() {
           <Route path='/companies' element={<Companies />} />
           <Route
             path={
-              user?.user?.accountType === "seeker"
+              user?.accountType === "seeker"
                 ? "/user-profile"
                 : "/user-profile/:id"
             }
@@ -57,7 +57,7 @@ function App() {
         <Route path='/user-auth' element={<AuthPage />} />
       </Routes>
       {user && <Footer />}
-    </main>
+    </main> 
   );
 }
 

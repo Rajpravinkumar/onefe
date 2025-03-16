@@ -4,21 +4,21 @@ import { Link } from "react-router-dom";
 
 const JobCard = ({ job }) => {
   return (
-    <Link to={`/job-detail/${job?.id}`}>
+    <Link to={`/job-detail/${job?._id}`}>
       <div
-        className='w-full md:w-[16rem] 2xl:w-[18rem] h-[16rem] md:h-[18rem] bg-white flex flex-col justify-between shadow-lg 
-                rounded-md px-3 py-5 '
+        className='flex flex-col justify-between bg-white shadow-lg px-3 py-5 rounded-md w-full md:w-[16rem] 2xl:w-[18rem] h-[16rem] md:h-[18rem]'
       >
-        <div className='flex gap-3'>
+  <div className="flex flex-col justify-between w-full h-full">
+  <div className='flex gap-3'>
           <img
-            src={job?.company?.profileUrl}
-            alt={job?.company?.name}
+            src={job?.logo}
+            alt={job?.name}
             className='w-14 h-14'
           />
 
-          <div className=''>
-            <p className='text-lg font-semibold truncate'>{job?.jobTitle}</p>
-            <span className='flex gap-2 items-center'>
+          <div className='flex flex-col justify-center w-full h-16-col'>
+            <p className='flex iteme-center w-full h-12 overflow-hidden font-semibold text-lg truncate leading-5'>{job?.jobTitle}</p>
+            <span className='flex items-center gap-2'>
               <GoLocation className='text-slate-900 text-sm' />
               {job?.location}
             </span>
@@ -31,14 +31,15 @@ const JobCard = ({ job }) => {
           </p>
         </div>
 
-        <div className='flex items-center justify-between'>
-          <p className='bg-[#1d4fd826] text-[#1d4fd8] py-0.5 px-1.5 rounded font-semibold text-sm'>
+        <div className='flex justify-between items-center'>
+          <p className='bg-[#1d4fd826] px-1.5 py-0.5 rounded font-semibold text-[#1d4fd8] text-sm'>
             {job?.jobType}
           </p>
           <span className='text-gray-500 text-sm'>
             {moment(job?.createdAt).fromNow()}
           </span>
         </div>
+  </div>
       </div>
     </Link>
   );
