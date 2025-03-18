@@ -81,9 +81,16 @@ const Companies = () => {
         </div>
 
         <div className='flex flex-col gap-6 w-full'>
-          {data?.map((cmp, index) => (
-            <CompanyCard cmp={cmp} key={index} />
-          ))}
+          {data?.map((cmp, index) => {
+            console.log("cmpdata")
+            return (
+              <CompanyCard cmp={cmp} key={index} />
+            )
+          }
+            
+          )
+
+          }
 
           {isFetching && (
             <div className='mt-10'>

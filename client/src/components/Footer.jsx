@@ -8,7 +8,7 @@ import CustomButton from "./CustomButton";
 const Footer = () => {
   return (
     <footer className='text-white mp-20'>
-      <div className='overflow-x-hidden -mb-0.5'>
+      <div className='-mb-0.5 overflow-x-hidden'>
         <svg
           preserveAspectRatio='none'
           viewBox='0 0 1200 120'
@@ -24,21 +24,21 @@ const Footer = () => {
         </svg>
       </div>
 
-      <div className='bg-[#1d4ed8] '>
-        <div className='container px-5 py-20 mx-auto '>
-          <div className='w-full flex flex-wrap gap-10 justify-between -mb-10 -px-4'>
+      <div className='bg-[#1d4ed8]'>
+        <div className='mx-auto px-5 py-20 container'>
+          <div className='flex flex-wrap justify-between gap-10 -mb-10 -px-4 w-full'>
             {footerLinks.map(({ id, title, links }) => (
-              <div className='w-auto px-4 ' key={id + title}>
-                <h2 className='font-medium text-white tracking-widest text-sm mb-3'>
+              <div className='px-4 w-auto' key={id + title}>
+                <h2 className='mb-3 font-medium text-white text-sm tracking-widest'>
                   {title}
                 </h2>
 
-                <div className='mb-10 flex flex-col gap-3 '>
+                <div className='flex flex-col gap-3 mb-10'>
                   {links.map((link, index) => (
                     <Link
                       key={link + index}
                       to='/'
-                      className='text-gray-300 text-sm hover:text-white '
+                      className='text-gray-300 hover:text-white text-sm'
                     >
                       {link}
                     </Link>
@@ -50,12 +50,12 @@ const Footer = () => {
         </div>
 
         <div className=''>
-          <p className='container px-5 mx-auto text-white mt-2 '>
+          <p className='mx-auto mt-2 px-5 text-white container'>
             Subscribe to our Newsletter
           </p>
 
-          <div className='container mx-auto px-5 pt-6 pb-8 flex flex-wrap items-center justify-between '>
-            <div className='w-full md:w-2/4 lg:w-1/3 h-16 flex items-center justify-center md:justify-start '>
+          <div className='flex flex-wrap justify-between items-center mx-auto px-5 pt-6 pb-8 container'>
+            <div className='flex justify-center md:justify-start items-center w-full md:w-2/4 lg:w-1/3 h-16'>
               <TextInput
                 styles='w-full flex-grow md:w-40 2xl:w-64 bg-gray-100 sm:mr-4 md-2'
                 type='email'
@@ -70,18 +70,18 @@ const Footer = () => {
               />
             </div>
 
-            <span className='inline-flex lg:ml-auto lg:mt-0 mt-6 w-full justify-center md:justify-start md:w-auto'>
-              <a className='text-white text-xl  hover:scale-125 ease-in-out duration-300'>
+            <span className='inline-flex justify-center md:justify-start mt-6 lg:mt-0 lg:ml-auto w-full md:w-auto'>
+              <a className='text-white text-xl hover:scale-125 duration-300 ease-in-out'>
                 <FaFacebookF />
               </a>
-              <a className='ml-3 text-white text-xl  hover:scale-125 ease-in-out duration-300'>
+              <a className='ml-3 text-white text-xl hover:scale-125 duration-300 ease-in-out'>
                 <FaTwitter />
               </a>
-              <a className='ml-3 text-white text-xl  hover:scale-125 ease-in-out duration-300'>
+              <a className='ml-3 text-white text-xl hover:scale-125 duration-300 ease-in-out'>
                 <FiInstagram />
               </a>
 
-              <a className='ml-3 text-white text-xl  hover:scale-125 ease-in-out duration-300'>
+              <a className='ml-3 text-white text-xl hover:scale-125 duration-300 ease-in-out'>
                 <FaLinkedinIn />
               </a>
             </span>
@@ -89,21 +89,21 @@ const Footer = () => {
         </div>
 
         <div className='bg-[#001a36]'>
-          <div className='container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row'>
-            <p className='text-gray-300 text-sm text-center sm:text-left'>
+          <div className='flex sm:flex-row flex-col flex-wrap mx-auto px-5 py-4 container'>
+            <p className='text-gray-300 text-sm sm:text-left text-center'>
               &copy; 2023 Job Finder —
               <a
-                href='https://youtube.com/@CodeWaveWithAsante'
-                className='text-[#1199e7] ml-1'
+                href=' '
+                className='ml-1 text-[#1199e7]'
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                @CodeWave
+                @xyz
               </a>
             </p>
 
-            <span className='sm:ml-auto sm:mt-0 mt-2 sm:w-auto w-full sm:text-left text-center text-gray-300 text-sm'>
-              Designed by CodeWave
+            <span className='mt-2 sm:mt-0 sm:ml-auto w-full sm:w-auto text-gray-300 text-sm sm:text-left text-center'>
+              Designed by xyz
             </span>
           </div>
         </div>

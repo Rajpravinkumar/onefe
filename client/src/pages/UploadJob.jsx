@@ -56,10 +56,10 @@ const UploadJob = () => {
 
   const getRecentPost = async() => {
     try{
-        const id = user?._id;
-
+         const id = user?._id;
+     console.log(id);
         const res = await apiRequest({
-          url: "/companies/get-company/" + id,
+          url:  `/companies/get-company/${id}`,
           method: "GET",
         });
 

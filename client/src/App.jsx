@@ -47,8 +47,8 @@ function App() {
             element={<UserProfile />}
           />
 
-          <Route path={"/company-profile"} element={<CompanyProfile />} />
-          <Route path={"/company-profile/:id"} element={<CompanyProfile />} />
+          <Route path={"/company-profile"} element={<CompanyProfile />} /> 
+          <Route path={"/company-profile/:id"} element={<CompanyProfile />} /> 
           <Route path={"/upload-job"} element={<UploadJob />} />
           <Route path={"/job-detail/:id"} element={<JobDetail />} />
         </Route>

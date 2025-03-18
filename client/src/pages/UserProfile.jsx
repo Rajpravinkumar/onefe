@@ -96,6 +96,7 @@ const UserForm = ({ open, setOpen }) => {
                     className="flex flex-col gap-5 mt-2 w-full"
                     onSubmit={handleSubmit(onSubmit)}
                   >
+                  
                     <div className="flex gap-2 w-full">
                       <div className="w-1/2">
                         <TextInput

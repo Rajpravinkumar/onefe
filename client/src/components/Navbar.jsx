@@ -6,7 +6,7 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { AiOutlineClose, AiOutlineLogout } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import CustomButton from "./CustomButton";
-import { users } from "../utils/data";
+
 import { useSelector, useDispatch } from "react-redux";
 import { Logout } from "../redux/userSlice";
 
@@ -105,7 +105,7 @@ function MenuList({ user, onClick }) {
 const Navbar = () => {
   const { user } = useSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
-
+  
   const handleCloseNavbar = () => {
     setIsOpen((prev) => !prev);
   };

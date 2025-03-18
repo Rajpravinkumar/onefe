@@ -116,7 +116,7 @@ export const updateCompanyProfile = async (req, res, next) => {
       _id: id,
     };
 
-    const company = await Companies.findByIdAndUpdate(id, updateCompany, {
+    const company = await Companies.findByIdAndUpdate( id, updateCompany, {
       new: true,
     });
 
