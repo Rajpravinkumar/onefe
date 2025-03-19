@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { CustomButton, JobCard, JobTypes, Loading, TextInput } from "../components";
-import { jobs } from "../utils/data";
+
 import { useSelector } from "react-redux";
 import { apiRequest } from "../utils";
 import { useEffect } from "react";
@@ -28,7 +28,7 @@ const UploadJob = () => {
   const onSubmit = async (data) => {
      setIsLoading(true);
      setErrMsg(null);
-     const newData = { ...data , jobType: jobType };
+     const newData = { ...data, jobType: jobType };
      try {
       const res = await apiRequest({
         url: "/jobs/upload-job", 
@@ -57,7 +57,7 @@ const UploadJob = () => {
   const getRecentPost = async() => {
     try{
          const id = user?._id;
-     console.log(id);
+     
         const res = await apiRequest({
           url:  `/companies/get-company/${id}`,
           method: "GET",

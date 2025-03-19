@@ -13,7 +13,7 @@ const userAuth = async (req, res, next) => {
     const userToken = JWT.verify(token, process.env.JWT_SECRET_KEY);
 
     req.body.user = {
-      userId: userToken.userId,
+      userId: userToken.userid,
     };
 
     next();

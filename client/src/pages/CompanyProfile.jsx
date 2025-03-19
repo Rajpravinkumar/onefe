@@ -6,7 +6,7 @@ import { HiLocationMarker } from "react-icons/hi";
 import { AiOutlineMail } from "react-icons/ai";
 import { FiPhoneCall, FiEdit3, FiUpload } from "react-icons/fi";
 import { Link, useParams } from "react-router-dom";
-import { companies, jobs } from "../utils/data";
+
 import { CustomButton, JobCard, Loading, TextInput } from "../components";
 import { apiRequest, handleFileUpload } from "../utils";
 import { Login } from "../redux/userSlice";
@@ -29,7 +29,7 @@ const CompnayForm = ({ open, setOpen }) => {
   const [uploadCv, setUploadCv] = useState("");
   const [isLoading , setIsLoading] = useState( false);
   const [errMsg , setErrMsg] = useState({status: false, message: ""});
-
+ 
   const onSubmit = async (data) => {
     setIsLoading(true);
     setErrMsg(null);
@@ -38,15 +38,15 @@ const CompnayForm = ({ open, setOpen }) => {
     const newData = uri ? {...data, profileUrl: uri } : data;
 
     try {
-      const res = await apiRequest({
+      const res = await apiRequest ({
         url: "companies/update-company",
         token: user?.token,
         data: newData,
         method: "PUT",
       });
       setIsLoading(false);
- 
-      if(res.status === "failed") {
+
+       if(res.status === "failed") {
         setErrMsg({ ...res });
       }else {
         setErrMsg({ status: "success", message: res.message});
@@ -57,7 +57,7 @@ const CompnayForm = ({ open, setOpen }) => {
         setTimeout( () => { 
         window.location.reload();
       }, 1500);
-   }
+   } 
     } catch  (error) {
       console.log(error);
       setIsLoading(false);
@@ -174,26 +174,19 @@ const CompnayForm = ({ open, setOpen }) => {
                       )}
                     </div>
 
-                    <div className='mt-4'>
-                      <CustomButton
-                        type='submit'
-                        containerStyles='inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-8 py-2 text-sm font-medium text-white hover:bg-[#1d4fd846] hover:text-[#1d4fd8] focus:outline-none '
-                        title={"Submit"}
-                      />
-                    </div>
-                    <div className='mt-4'>
+                       <div className='mt-4'>
                       { 
                        isLoading ? (
                         <Loading/>
-                       ):
-                       
+                       ): (
+                        
                       
                       <CustomButton 
                       type='submit'
                       containerStyles='inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-8 py-2 txt-sm font-medium text-white hover:bg-[#14fd846] hover:text-[#1d4fd8] focus:outline-none'
                       title={"Submit"}
                       />
-                      }
+                      )}
                     </div>
                   </form>
                 </Dialog.Panel>
@@ -222,7 +215,7 @@ const CompanyProfile = () => {
       id = params?.id;
 
      }else {
-      id = user?.id;
+      id = user?._id;
      }
 
      try {
@@ -240,7 +233,7 @@ const CompanyProfile = () => {
        setIsLoading(false);
      }
   };
-
+ 
   
   useEffect(() => {
      fetchCompany();
@@ -301,7 +294,7 @@ const CompanyProfile = () => {
         <p>Jobs Posted</p>
 
         <div className='flex flex-wrap gap-3'>
-          {info?.jobposts?.map((job, index) => {
+          {info?.jobPosts?.map((job, index) => {
             const data = {
               name: info?.name,
               email: info?.email,

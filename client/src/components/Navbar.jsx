@@ -9,7 +9,6 @@ import CustomButton from "./CustomButton";
 
 import { useSelector, useDispatch } from "react-redux";
 import { Logout } from "../redux/userSlice";
-
 function MenuList({ user, onClick }) {
   const dispatch = useDispatch();
 
